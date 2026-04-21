@@ -21,7 +21,6 @@
 ```bash
 curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | bash
 ```
-*(⚠️ **注意**: 请将上述链接中的 `YOUR_REPO_NAME` 替换为你实际的仓库名称)*
 
 ---
 
