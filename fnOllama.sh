@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-echo "🔄 Ollama 升级脚本 for FnOS, 脚本v2.1.7 (突破 PEP 668 环境限制)"
+echo "🔄 Ollama 升级脚本 for FnOS, 脚本v2.1.8 (移除冗余目录切换)"
 
 # 1. 查找 Ollama 安装路径
 echo "🔍 查找 Ollama 安装路径..."
@@ -157,7 +157,6 @@ else
 fi
 
 echo "⬆️ 正在升级 pip..."
-# 加入了 --break-system-packages 参数
 "$PYTHON_EXEC" -m pip install --upgrade pip --break-system-packages || {
     echo "❌ pip 升级失败，可能是网络问题或 GitHub 被墙"
     echo "   请尝试设置代理后重新运行："
@@ -167,8 +166,7 @@ echo "⬆️ 正在升级 pip..."
 }
 
 echo "⬆️ 正在升级 open-webui..."
-cd "$PIP_DIR"
-# 加入了 --break-system-packages 参数
+# 注意：这里删除了多余的 cd "$PIP_DIR"
 "$PYTHON_EXEC" -m pip install --upgrade open_webui --break-system-packages || {
     echo "❌ open-webui 升级失败"
     echo "🔎 常见原因：网络不通 / pip太旧 / 无法连接 PyPI"
