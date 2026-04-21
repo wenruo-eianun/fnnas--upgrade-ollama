@@ -1,0 +1,59 @@
+
+# 🚀 fnOllama - 飞牛 OS (FnOS) Ollama 一键安装与升级脚本
+
+专为飞牛 OS (Feiniu OS) 用户打造的 Ollama 一键安装与自动升级脚本。完美解决 Ollama 官方更新包格式变动带来的解压报错问题，并自动适配不同硬件架构。
+
+## ✨ 核心特性 (Features)
+
+* 🚀 **一键全自动**：自动查找 FnOS 系统下的 AI 安装路径，无需手动干预。
+* 🧠 **智能架构识别**：自动判断并拉取 `x86_64` (amd64) 或 `arm64` (aarch64) 对应的安装包，完美适配多种硬件。
+* 📦 **最新格式支持**：兼容 Ollama 最新的 `.tar.zst` (Zstandard) 压缩格式，告别 `tar -xzf` 解压报错。
+* 🔄 **全家桶升级**：不仅升级 Ollama 客户端，还会同步更新 Python 环境中的 `pip` 以及 `open-webui`。
+* 🛡️ **安全备份机制**：每次升级前自动备份旧版 Ollama 目录（例如 `ollama_bk_日期`），升级异常可快速回滚。
+* ⚡ **多线程下载**：优先使用 `aria2c` 进行 16 线程满速下载，若未安装则平滑降级使用 `curl`。
+
+---
+
+## 🛠️ 一键安装 / 升级 (Quick Start)
+
+通过 SSH 登录到你的飞牛 OS 终端（请使用 `root` 权限），然后复制并运行以下命令：
+
+```bash
+curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | bash
+```
+*(⚠️ **注意**: 请将上述链接中的 `YOUR_REPO_NAME` 替换为你实际的仓库名称)*
+
+---
+
+## 📋 运行流程简述
+
+1. 脚本会自动扫描 `/vol1` 到 `/vol9`，寻找 `@appcenter/ai_installer` 目录。
+2. 自动检测当前的系统架构与已安装的 Ollama 版本。
+3. 从 GitHub 获取最新 Release 版本号。
+4. 如果有新版本，自动下载对应的 `.tar.zst` 压缩包并验证完整性。
+5. 备份旧版本，解压新版本。
+6. 自动执行 `open-webui` 和 `pip` 的升级。
+7. 打印最新版本号，升级完成！
+
+---
+
+## 💡 常见问题 (FAQ)
+
+**Q: 提示下载失败或获取不到最新版本号怎么办？**
+A: 这通常是因为国内访问 GitHub 的网络限制导致。你可以在终端中临时设置代理后再执行脚本：
+```bash
+export https_proxy=http://你的代理IP:端口
+export http_proxy=http://你的代理IP:端口
+```
+
+**Q: 升级中途断电或中断了，Ollama 无法启动了？**
+A: 别担心，脚本具备中断恢复机制。只需重新运行一次一键安装命令，脚本会自动检测到未完成的备份 `ollama_bk_xxx` 并恢复原状，随后重新尝试升级。
+
+**Q: 如何手动回滚到旧版本？**
+A: 进入安装目录（通常是 `/vol1/@appcenter/ai_installer`），删除当前的 `ollama` 文件夹，然后将备份文件夹重命名回 `ollama` 即可。
+
+---
+
+## 🤝 贡献与反馈
+
+如果你在使用过程中遇到任何 Bug，或者有让脚本变得更好的建议，欢迎提交 **Issue** 或 **Pull Request**！
