@@ -17,6 +17,7 @@
 ## 🛠️ 一键安装 / 升级 (Quick Start)
 
 通过 SSH 登录到你的飞牛 OS 终端（请使用 `root` 权限），然后复制并运行以下命令：
+⚠️使用前先停用应用商城的ollama的app
 
 ```bash
 curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | bash
