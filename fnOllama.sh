@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-echo "🔄 Ollama 升级脚本 for FnOS, 脚本v2.1.6 (增加 FORCE 强制重装机制)"
+echo "🔄 Ollama 升级脚本 for FnOS, 脚本v2.1.7 (突破 PEP 668 环境限制)"
 
 # 1. 查找 Ollama 安装路径
 echo "🔍 查找 Ollama 安装路径..."
@@ -132,7 +132,6 @@ if [ "$NEED_DOWNLOAD" = true ]; then
     fi
 fi
 
-
 # 5. 备份旧版本
 BACKUP_NAME="ollama_bk_$(date +%Y%m%d_%H%M%S)"
 # 只有在旧版存在的情况下才备份，防止循环强制重装时报错
@@ -158,7 +157,8 @@ else
 fi
 
 echo "⬆️ 正在升级 pip..."
-"$PYTHON_EXEC" -m pip install --upgrade pip || {
+# 加入了 --break-system-packages 参数
+"$PYTHON_EXEC" -m pip install --upgrade pip --break-system-packages || {
     echo "❌ pip 升级失败，可能是网络问题或 GitHub 被墙"
     echo "   请尝试设置代理后重新运行："
     echo "   export https_proxy=http://127.0.0.1:7890"
@@ -168,7 +168,8 @@ echo "⬆️ 正在升级 pip..."
 
 echo "⬆️ 正在升级 open-webui..."
 cd "$PIP_DIR"
-"$PYTHON_EXEC" -m pip install --upgrade open_webui || {
+# 加入了 --break-system-packages 参数
+"$PYTHON_EXEC" -m pip install --upgrade open_webui --break-system-packages || {
     echo "❌ open-webui 升级失败"
     echo "🔎 常见原因：网络不通 / pip太旧 / 无法连接 PyPI"
     echo "✔️ 可尝试设置代理或手动升级："
