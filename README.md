@@ -22,7 +22,10 @@
 ```bash
 curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | bash
 ```
-
+强制重装命令 如果出现500报错等
+```bash
+curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | FORCE=1 bash
+```
 ---
 
 ## 📋 运行流程简述
