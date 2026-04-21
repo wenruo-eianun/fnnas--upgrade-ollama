@@ -99,7 +99,7 @@ if [ "$CLIENT_VER" = "${LATEST_TAG#v}" ]; then
     else
         echo "✅ 当前已是最新版本（v$CLIENT_VER），无需升级。"
         echo "💡 如果你的环境损坏(如报500错误)，想要强制重新安装，请在命令前加上 FORCE=1"
-        echo "👉 示例: FORCE=1 curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | bash"
+        echo "👉 示例: curl -sL https://raw.githubusercontent.com/wenruo-eianun/fnnas--upgrade-ollama/main/fnOllama.sh | FORCE=1 bash"
         exit 0
     fi
 fi
